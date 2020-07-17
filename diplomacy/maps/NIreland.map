@@ -1,0 +1,153 @@
+BEGIN SPRING 1970 MOVEMENT
+RULES BUILD_ANY
+
+OIRA     (Official_Irish_Republican_Army,_the_Stickies)     DER BOG STR
+A DER
+A BOG
+A STR
+
+PIRA     (Provisional_IRA_and_Provo_IRA,_the_Provos)      FAL ARM AND
+A FAL
+A ARM
+A AND
+
+UDA      (Ulster_Defense_Association)      SHA BAN DOW
+A SHA
+A BAN
+A DOW
+
+VFU      (Ulster_Volunteers_Force)       LDY COL ANT
+A COL
+A LDY
+A ANT
+
+INLA     (Irish_National_Liberation_Army) ENN OMA
+A ENN
+A OMA
+
+Eire     (Republic_of_Ireland)      DUB DRO DGL
+F DUB
+A DRO
+F DGL
+
+Brits    (British)      LON LPL BEL LAR
+A BEL
+A LAR
+F LPL
+F LON
+
+UNOWNED USA BSH DUN COO MAR NEW
+
+Belfast                     = bel
+Stormont                    = sto
+Market                      = mak
+Bangor                      = ban hol
+Shankill                    = sha shan
+Downpatrick                 = dow down
+Londonderry                 = ldy
+Coleraine                   = col
+Cookstown                   = coo
+Ballymena                   = bmn
+Newtownabby                 = nta
+Antrim                      = ant
+Falls                       = fal
+Armagh                      = arm
+Andersontown                = and
+Derry                       = der
+Bogside                     = bog
+Strabane                    = str
+Enniskillen                 = enn
+Omagh                       = oma
+Glenelly                    = gle
+Dungannon                   = dun
+Graigaven                   = gra
+Waterside                   = wat
+Buncrana                    = bun
+Letterkenny                 = let
+Ballyshannon                = bsh
+Donegal                     = dgl dng
+Donegal Bay                 = donb
+Wales                       = wal
+Liverpool                   = lpl liv lvp
+London                      = lon
+Larne                       = lar
+Lough Neagh                 = lnea
+Lough Erne                  = lern
+Lough Foyle                 = lfoy
+Lough Swilly                = lswi
+Tory Sound                  = tors
+Blue Stack Mountains        = blu
+Mourne Mountain             = mou
+Dublin                      = dub
+Drogheda                    = dro
+Banbridge                   = bnb
+Newry                       = new
+Dundalk                     = dnd
+Cavan                       = cav
+Monaghan                    = mon
+Fermanagh                   = fer
+North Atlantic Ocean        = natl
+Mid Atlantic Ocean          = mido
+Antrim Coast                = acoa
+North Channel               = ncha
+Irish Sea                   = iris
+St George Channel           = stgc
+USA                         = usa
+
+COAST	 BEL		ABUTS	 BAN STO MAR sha ant NTA NCHA
+COAST	 LAR		ABUTS	 BMN COL ACOA NCHA NTA
+COAST	 NTA		ABUTS	 ANT BMN LAR NCHA BEL
+COAST	 COL		ABUTS	 BMN LAR ACOA LFOY LDY
+COAST	 LDY		ABUTS	 BOG DER LFOY COL BMN ant coo WAT
+LAND     BMN            ABUTS    LDY COL LAR NTA ANT
+COAST    SHA            ABUTS    LNEA ANT bel MAR AND GRA
+COAST	 ANT		ABUTS	 COO ldy BMN nta bel SHA LNEA
+WATER    LNEA		ABUTS	 COO ANT SHA FAL GRA DUN
+COAST    DER            ABUTS    LFOY LDY BUN let BOG
+LAND     BOG            ABUTS    LET DER LDY WAT STR
+LAND     STR            ABUTS    LET BOG WAT GLE OMA
+COAST    BUN		ABUTS	 LFOY LSWI LET DER
+COAST    BLU 		ABUTS	 DGL LET TORS DONB
+COAST    LET 		ABUTS	 BLU dgl OMA STR BOG der BUN LSWI TORS
+COAST    COO            ABUTS    GLE WAT ldy ANT LNEA DUN
+COAST    GRA            ABUTS    DUN LNEA FAL AND ARM
+COAST    ARM            ABUTS    enn dun GRA AND BNB NEW MON
+COAST    FAL            ABUTS    GRA LNEA SHA MAR AND
+COAST    DUN            ABUTS    OMA enn arm GRA LNEA COO GLE
+COAST    AND            ABUTS    ARM GRA FAL MAR dow BNB
+LAND     GLE            ABUTS    STR OMA WAT COO DUN
+LAND     WAT            ABUTS    BOG LDY COO GLE STR
+COAST    MON            ABUTS    fer enn ARM NEW DND CAV
+LAND     STO            ABUTS    MAR BEL BAN DOW
+COAST    BAN            ABUTS    BEL NCHA STO DOW
+LAND     MAR            ABUTS    FAL SHA BEL STO DOW AND
+COAST    NEW            ABUTS    MON ARM BNB dow MOU DND IRIS
+COAST    DOW            ABUTS    and MAR STO new BAN MOU bnb IRIS NCHA
+COAST    MOU            ABUTS    NEW DOW IRIS
+COAST    DND            ABUTS    DRO CAV MON NEW IRIS
+LAND     CAV            ABUTS    LEI FER MON DND DRO
+COAST    DRO            ABUTS    DUB DND CAV IRIS
+COAST	 DUB		ABUTS	 IRIS DRO
+COAST	 LON		ABUTS	 WAL lpl IRIS
+COAST	 WAL		ABUTS	 LPL LON IRIS NCHA
+COAST	 LPL		ABUTS	 WAL lon NCHA
+WATER	 NCHA		ABUTS	 IRIS LPL WAL DOW BAN BEL NEW LAR ACOA
+WATER	 IRIS		ABUTS	 LON WAL NCHA DOW MOU DND DRO DUB STGC NEW
+WATER	 ACOA		ABUTS	 LAR COL LFOY LSWI NATL NCHA
+WATER    LSWI		ABUTS	 NATL TORS LFOY ACOA BUN LET
+WATER    LFOY		ABUTS	 BUN LSWI ACOA COL LDY DER
+WATER	 STGC		ABUTS	 IRIS DONB MIDO
+WATER	 DONB	 	ABUTS	 STGC TORS MIDO BLU DGL BSH SLI
+COAST    BSH 	 	ABUTS    SLI LEI DONB FRE LERN OMA DNG
+COAST    DGL 	 	ABUTS    DONB BLU let OMA BSH
+LAND     OMA 	 	ABUTS    DGL LET STR GLE DUN ENN BSH
+COAST    ENN		ABUTS	 BSH OMA dun arm mon FER LERN 
+COAST    FER 	 	ABUTS    LEI LERN CAV mon ENN BSH
+WATER	 NATL		ABUTS	 MIDO TORS TORS ACOA USA
+COAST    USA            ABUTS    NATL MIDO
+WATER	 MIDO		ABUTS	 STGC TORS DONB NATL USA
+COAST    SLI		ABUTS	 BSH LEI DONB
+WATER    LERN		ABUTS    BSH ENN FER
+COAST    LEI		ABUTS	 BSH FER SLI
+
+# province Bangor is on map as Hollywood.
