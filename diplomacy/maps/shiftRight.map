@@ -1,0 +1,213 @@
+BEGIN SPRING 2201 MOVEMENT
+
+TURKEY      (TURKISH)      ANK CON SMY
+A WAR
+A MOS
+F SEV
+F STP/SC
+
+FRANCE      (FRENCH)       BRE MAR PAR
+F KIE
+A BER
+A MUN
+
+GERMANY     (GERMAN)       BER KIE MUN
+A BUD
+A VIE
+F TRI
+
+ITALY       (ITALIAN)      NAP ROM VEN
+F ANK
+A CON
+A SMY
+
+AUSTRIA     (AUSTRIAN)     BUD TRI VIE
+F NAP
+A ROM
+A VEN
+
+ENGLAND     (ENGLISH)      EDI LON LVP
+F BRE
+A MAR
+A PAR
+
+RUSSIA      (RUSSIAN)      MOS SEV STP WAR
+F EDI
+F LON
+A LVP
+
+UNOWNED                    BEL BUL DEN GRE HOL NWY POR RUM SER SPA SWE TUN
+
+Adriatic Sea                = adrS adriatic
+Aegean Sea                  = aegS aegean
+Albania                     = alb
+Ankara                      = ank
+Apulia                      = apu
+Armenia                     = arm
+Baltic Sea                  = balS baltic
+Barents Sea                 = barS barents
+Belgium                     = bel
+Berlin                      = ber berl
+Black Sea                   = blaS black bs
+Bohemia                     = boh
+Brest                       = bre
+Budapest                    = bud
+Bulgaria (east coast)       = bul/ec bul(ec) bulgaria/ec bulgaria(ec) bul/nc bul(nc) bulgaria/nc bulgaria(nc)
+Bulgaria (south coast)      = bul/sc bul(sc) bulgaria/sc bulgaria(sc)
+Bulgaria                    = bul bulg
+Burgundy                    = bur burg burgandy
+Clyde                       = cly
+Constantinople              = con
+Denmark                     = den
+Eastern Mediterranean       = easM emed east eastern eastmed ems eme emd eas+med
+Edinburgh                   = edi
+English Channel             = engC channel ech eng+ch
+Finland                     = fin
+Galicia                     = gal galacia
+Gascony                     = gas gasc
+Greece                      = gre
+Gulf of Lyon                = Glyo gol gulfofl lyon gulf+of+lyons lyons
+Gulf of Bothnia             = Gbot gob both gulfofb bothnia
+Helgoland Bight             = helB helgoland heligoland heligoland+bight helg
+Holland                     = hol
+Ionian Sea                  = ionS ionian
+Irish Sea                   = iriS irish irs
+Kiel                        = kie
+Liverpool                   = lvp livp lpl
+Livonia                     = lvn livo lvo lva liv livon
+London                      = lon
+Marseilles                  = mar mars
+Mid-Atlantic Ocean          = midO midatlanticocean midatlantic mid mat
+Moscow                      = mos
+Munich                      = mun
+Naples                      = nap
+North Atlantic Ocean        = natl nat na
+North Africa                = naf nora n+afr
+North Sea                   = nthS norsea nts ns
+Norway                      = nwy nor norw
+Norwegian Sea               = nwgS norwegian norwsea nrg norg
+Paris                       = par
+Picardy                     = pic
+Piedmont                    = pie pid
+Portugal                    = por port
+Prussia                     = pru prus
+Rome                        = rom
+Ruhr                        = ruh
+Rumania                     = rum romania
+Serbia                      = ser serb
+Sevastopol                  = sev sevastapol sevast seva
+Silesia                     = sil
+Skagerrak                   = skag skagerrack skag
+Smyrna                      = smy
+Spain (north coast)         = spa/nc spa(nc) spain/nc spain(nc) spn/nc spn(nc) spa+(north+coast)
+Spain (south coast)         = spa/sc spa(sc) spain/sc spain(sc) spn/sc spn(sc) spa+(south+coast) spa/wc
+Spain                       = spa spn
+St Petersburg (north coast) = stp/nc stp(nc) stpete/nc stpete(nc) st.+petersburg/nc stp+(north+coast)
+St Petersburg (south coast) = stp/sc stp(sc) stpete/sc stpete(sc) st.+petersburg/sc stp+(south+coast)
+St Petersburg               = stp stpete st.+petersburg st.petersburg
+Sweden                      = swe
+Syria                       = syr
+Trieste                     = tri
+Tunis                       = tun
+Tuscany                     = tus tusc
+Tyrolia                     = tyr tyl trl tyo tyrol
+Tyrrhenian Sea              = trhS tyrr tyrrhenian tyn tyh tyrhh
+Ukraine                     = ukr
+Venice                      = ven
+Vienna                      = vie vien
+Wales                       = wal
+Warsaw                      = war
+Western Mediterranean       = wesM wmed west western westmed wms wme wmd west+med wes+med western+med
+Yorkshire                   = yor york yonkers
+
+#    ----------------------------------------------------------------
+#    Location adjacency information, keyed off the official dpjudge
+#    name of the location.  Here, upper- and lower-case IS important.
+#    ----------------------------------------------------------------
+WATER    ADRS        ABUTS    ALB APU IONS TRI VEN
+WATER    AEGS        ABUTS    BUL/SC CON EASM GRE IONS SMY
+COAST    ALB        ABUTS    ADRS GRE IONS SER TRI
+COAST    ANK        ABUTS    ARM BLAS CON smy
+COAST    APU        ABUTS    ADRS IONS NAP rom VEN
+COAST    ARM        ABUTS    ANK BLAS SEV smy syr
+WATER    BALS        ABUTS    BER GBOT DEN LVN KIE PRU SWE
+WATER    BARS        ABUTS    NWY NWGS STP/NC
+COAST    BEL        ABUTS    BUR ENGC HOL NTHS PIC RUH
+COAST    BER        ABUTS    BALS KIE MUN PRU SIL
+WATER    BLAS        ABUTS    ANK ARM BUL/EC CON RUM SEV
+LAND     BOH        ABUTS    GAL MUN SIL TYR VIE
+WATER    GBOT        ABUTS    BALS FIN LVN STP/SC SWE
+COAST    BRE        ABUTS    ENGC GAS MIDO PAR PIC
+LAND     BUD        ABUTS    GAL RUM SER TRI VIE
+COAST    BUL/EC     ABUTS    BLAS CON RUM
+COAST    BUL/SC     ABUTS    AEGS CON GRE
+COAST    bul        ABUTS    AEGS BLAS CON GRE RUM SER
+LAND     BUR        ABUTS    BEL GAS RUH MAR MUN PAR PIC SWI
+COAST    CLY        ABUTS    EDI LVP NATL NWGS
+COAST    CON        ABUTS    AEGS BUL/EC BUL/SC BLAS ANK SMY
+COAST    DEN        ABUTS    BALS HELB KIE NTHS SKA SWE
+WATER    EASM        ABUTS    AEGS IONS SMY SYR
+COAST    EDI        ABUTS    CLY lvp NTHS NWGS YOR
+WATER    ENGC        ABUTS    BEL BRE IRIS LON MIDO NTHS PIC WAL
+COAST    FIN        ABUTS    GBOT nwy STP/SC SWE
+LAND     GAL        ABUTS    BOH BUD RUM SIL UKR VIE WAR
+COAST    GAS        ABUTS    BUR BRE MIDO mar PAR SPA/NC
+COAST    GRE        ABUTS    AEGS ALB BUL/SC IONS SER
+WATER    HELB        ABUTS    DEN HOL KIE NTHS
+COAST    HOL        ABUTS    BEL HELB KIE NTHS RUH
+WATER    IONS        ABUTS    ADRS AEGS ALB APU EASM GRE NAP TUN TRHS
+WATER    IRIS        ABUTS    ENGC LVP MIDO NATL WAL
+COAST    KIE        ABUTS    BALS BER DEN HELB HOL MUN RUH
+COAST    LON        ABUTS    ENGC NTHS YOR WAL
+COAST    LVN        ABUTS    BALS GBOT MOS PRU STP/SC WAR
+COAST    LVP        ABUTS    CLY edi IRIS NATL WAL yor
+WATER    GLYO        ABUTS    MAR PIE SPA/SC TUS TRHS WESM
+WATER    MIDO        ABUTS    BRE ENGC GAS IRIS NAF NATL POR SPA/NC SPA/SC WESM
+COAST    MAR        ABUTS    BUR gas GLYO PIE SPA/SC SWI
+LAND     MOS        ABUTS    LVN SEV STP UKR WAR
+LAND     MUN        ABUTS    BER BOH BUR KIE RUH SIL TYR SWI
+COAST    NAF        ABUTS    MIDO TUN WESM
+WATER    NATL        ABUTS    CLY IRIS LVP MIDO NWGS
+COAST    NAP        ABUTS    APU IONS ROM TRHS
+COAST    NWY        ABUTS    BARS fin NTHS NWGS SKAG STP/NC SWE
+WATER    NTHS        ABUTS    BEL DEN EDI ENGC LON HELB HOL NWY NWGS SKAG YOR
+WATER    NWGS        ABUTS    BARS CLY EDI NATL NWY NTHS
+LAND     PAR        ABUTS    BUR BRE GAS PIC
+COAST    PIC        ABUTS    BEL BRE BUR ENGC PAR
+COAST    PIE        ABUTS    GLYO MAR TUS TYR ven SWI
+COAST    POR        ABUTS    MIDO SPA/NC SPA/SC
+COAST    PRU        ABUTS    BALS BER LVN SIL WAR
+COAST    ROM        ABUTS    apu NAP TUS TRHS ven
+LAND     RUH        ABUTS    BEL BUR HOL KIE MUN
+COAST    RUM        ABUTS    BLAS BUD BUL/EC GAL SER SEV UKR
+LAND     SER        ABUTS    ALB BUD BUL GRE RUM TRI
+COAST    SEV        ABUTS    ARM BLAS MOS RUM UKR
+LAND     SIL        ABUTS    BER BOH GAL MUN PRU WAR
+WATER    SKAG        ABUTS    DEN NWY NTHS SWE
+COAST    SMY        ABUTS    AEGS ank arm CON EASM SYR
+COAST    SPA/NC     ABUTS    GAS MIDO POR
+COAST    SPA/SC     ABUTS    GLYO MIDO MAR POR WESM
+COAST    spa        ABUTS    GAS GLYO MIDO MAR POR WESM
+COAST    STP/NC     ABUTS    BARS NWY
+COAST    STP/SC     ABUTS    GBOT FIN LVN
+COAST    stp        ABUTS    BARS GBOT FIN LVN MOS NWY
+COAST    SWE        ABUTS    BALS GBOT DEN FIN NWY SKAG
+COAST    SYR        ABUTS    arm EASM SMY
+COAST    TRI        ABUTS    ADRS ALB BUD SER TYR VEN VIE
+COAST    TUN        ABUTS    IONS NAF TRHS WESM
+COAST    TUS        ABUTS    GLYO PIE ROM TRHS ven
+LAND     TYR        ABUTS    BOH MUN PIE TRI VEN VIE SWI
+WATER    TRHS        ABUTS    IONS GLYO ROM NAP TUN TUS WESM
+LAND     UKR        ABUTS    GAL MOS RUM SEV WAR
+COAST    VEN        ABUTS    ADRS APU pie rom TRI tus TYR
+LAND     VIE        ABUTS    BOH BUD GAL TRI TYR
+COAST    WAL        ABUTS    ENGC IRIS LON LVP yor
+LAND     WAR        ABUTS    GAL LVN MOS PRU SIL UKR
+WATER    WESM        ABUTS    MIDO GLYO NAF SPA/SC TUN TRHS
+COAST    YOR        ABUTS    EDI LON lvp NTHS wal
+
+#    ------------------------
+#    Switzerland (impassable)
+#    ------------------------
+Switzerland        = swi
+SHUT    SWI        ABUTS    MAR BUR MUN TYR PIE
