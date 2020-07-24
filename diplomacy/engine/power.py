@@ -234,7 +234,7 @@ class Power(Jsonable):
             for unit in game.map.units.get(self.name, []):
                 game.update_hash(self.name, unit_type=unit[0], loc=unit[2:])
                 self.units.append(unit)
-                self.influence.append(unit[2:5])
+                self.influence.append(unit[2:6])
 
     def merge(self, other_power):
         """ Transfer all units, centers, and homes of the other_power to this power
