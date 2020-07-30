@@ -74,7 +74,7 @@ def to_saved_game_format(game, output_path=None, output_mode='a'):
         saved_game_json += '\012'
       secondPriorChr = priorChr
       priorChr = chr
-      saved_game_json += '\n'
+    
     # Writing to disk
     if output_path:
         with open(output_path, output_mode) as output_file:
