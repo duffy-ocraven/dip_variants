@@ -961,7 +961,7 @@ class Game(Jsonable):
         power = self.get_power(power_name)
 
         # Getting orders for a particular power
-        # Skipping VOID and WAIVE orders in Adjustment/Retreats phase
+        # Skipping WAIVE orders but preserving VOID in Adjustment/Retreats phase
         if power_name is not None:
             if self.get_current_phase()[-1] == 'M':
                 if 'NO_CHECK' in self.rules:
@@ -970,7 +970,7 @@ class Game(Jsonable):
                     power_orders = ['{} {}'.format(unit, unit_order) for unit, unit_order in power.orders.items()]
             else:
                 power_orders = [order for order in power.adjust
-                                if order and order != 'WAIVE' and order.split()[0] != 'VOID']
+                                if order and order != 'WAIVE'] # and order.split()[0] != 'VOID']
             return power_orders
 
         # Recursively calling itself to get all powers
@@ -4248,6 +4248,8 @@ class Game(Jsonable):
                     power.units.remove(unit)
 
                     # Adding
+                    # annotate_move_results
+                    self.result[unit] = ["-> %s" % (new_unit[2:],)]
                     new_unit = unit[:2] + self.command[unit].split()[-1 - offset]
                     self.update_hash(power.name, unit_type=new_unit[0], loc=new_unit[2:])
                     power.units += [new_unit]
@@ -4262,6 +4264,7 @@ class Game(Jsonable):
         if destroyed:
             for unit, power in destroyed.items():
                 if unit in power.retreats:
+                    self.result[unit] += ["disbanded"]
                     self.update_hash(power.name, unit_type=unit[0], loc=unit[2:], is_dislodged=True)
                     del power.retreats[unit]
 
@@ -4324,6 +4327,9 @@ class Game(Jsonable):
                         unit = ' '.join(word[:2])
                         if word[-1] == 'B':
                             diff += 1
+                            if ("WAIVE" == unit):
+                              self.result.setdefault(unit, []).append(power.name)
+                            #else:
                         else:
                             self.result.setdefault(unit, []).append(VOID)
                             power.adjust.remove(order)
@@ -4334,6 +4340,8 @@ class Game(Jsonable):
                         unit = ' '.join(word[:2])
                         if word[-1] == 'D':
                             diff -= 1
+                            self.result.setdefault(unit, []).append("chose disband")
+
                             disbanded_units.add(unit)
                         else:
                             self.result.setdefault(unit, []).append(VOID)
@@ -4376,7 +4384,7 @@ class Game(Jsonable):
                         else:
                             del armies[goner]
                         power.adjust += ['%s D' % goner]
-                        self.result.setdefault(goner, [])
+                        self.result.setdefault(goner, ["dislodged/disband"])
 
                 # Need to build units
                 else:
@@ -4394,13 +4402,17 @@ class Game(Jsonable):
                 for retreats in power.retreats:
                     self.result[retreats] = []
 
-            # Emptying void orders - And marking them as such
+            # Emptying void orders - And marking them as such  
             for power in self.powers.values():
                 for order in power.adjust[:]:
                     if order.split()[0] == 'VOID':
                         word = order.split()[1:]
                         unit = ' '.join(word[:2])
-                        self.result[unit] = [VOID]
+                        if ('B' == order[-1]):
+                          whichAction = 'B'
+                        else:
+                          whichAction = 'D'
+                        self.result[unit] = ["%s %s void" % (power.name, whichAction)]                      
                         if unit not in self.ordered_units[power.name]:
                             self.ordered_units[power.name] += [unit]
                         power.adjust.remove(order)
@@ -4443,9 +4455,9 @@ class Game(Jsonable):
                         self.update_hash(power.name, unit_type=unit[0], loc=unit[2:])
                         power.units += [' '.join(word[:2])]
                         diff += 1
-                        self.result[unit] += [OK]
+                        self.result[unit] += ["%s builds %s" % (power.name, unit)]
                     else:
-                        self.result[unit] += [VOID]
+                        self.result[unit] += ["%s B void" % (power.name,)]
                     if unit not in self.ordered_units[power.name]:
                         self.ordered_units[power.name] += [unit]
 
@@ -4455,9 +4467,9 @@ class Game(Jsonable):
                         self.update_hash(power.name, unit_type=unit[0], loc=unit[2:])
                         power.units.remove(' '.join(word[:2]))
                         diff -= 1
-                        self.result[unit] += [OK]
+                        self.result[unit] += ["%s disbands %s" % (power.name, unit)]
                     else:
-                        self.result[unit] += [VOID]
+                        self.result[unit] += ["%s D void" % (power.name,)]
                     if unit not in self.ordered_units[power.name]:
                         self.ordered_units[power.name] += [unit]
 
@@ -4474,10 +4486,14 @@ class Game(Jsonable):
                             if word[-1] in influence_power.influence:
                                 influence_power.influence.remove(word[-1])
                         power.influence.append(word[-1])
-
+                        self.result[unit] += [word[3]]
                     if unit not in self.ordered_units[power.name]:
                         self.ordered_units[power.name] += [unit]
-
+                elif word[-1] == 'D' and self.phase_type == 'R':
+                  self.dislodged[unit] = word[2] # self.dislodged is one vector for the whole board
+                  #debug print ("bef %s" % (self.result[unit],))
+                  self.result[unit] += [DISBAND]
+                  #debug print ("aft %s" % (self.result[unit],))
             for dis_unit in power.retreats:
                 self.update_hash(power.name, unit_type=dis_unit[0], loc=dis_unit[2:], is_dislodged=True)
             power.adjust, power.retreats, power.civil_disorder = [], {}, 0
@@ -4485,8 +4501,10 @@ class Game(Jsonable):
         # Disbanding
         for unit in [u for u in self.dislodged]:
             self.result.setdefault(unit, [])
-            if DISBAND not in self.result[unit]:
-                self.result[unit] += [DISBAND]
+            if DISBAND in self.result[unit]:
+              self.result[unit] = ["chose disband"]
+            else:
+             self.result[unit] += ["dislodged/disbanded"]
             del self.dislodged[unit]
             if unit not in self.popped:
                 self.popped += [unit]
