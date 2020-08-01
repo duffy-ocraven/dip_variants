@@ -31,7 +31,6 @@ RULES_TO_SKIP = ['SOLITAIRE', 'NO_DEADLINE', 'CD_DUMMIES', 'ALWAYS_WAIT', 'IGNOR
 
 def to_saved_game_format(game, output_path=None, output_mode='a'):
     """ Converts a game to a standardized JSON format
-
         :param game: game to convert.
         :param output_path: Optional path to file. If set, the json.dumps() of the saved_game is written to that file.
         :param output_mode: Optional. The mode to use to write to the output_path (if provided). Defaults to 'a'
@@ -69,7 +68,6 @@ def to_saved_game_format(game, output_path=None, output_mode='a'):
 def from_saved_game_format(saved_game):
     """ Rebuilds a :class:`diplomacy.engine.game.Game` object from the saved game (python :class:`Dict`)
         saved_game is the dictionary. It can be built by calling json.loads(json_line).
-
         :param saved_game: The saved game exported from :meth:`to_saved_game_format`
         :type saved_game: Dict
         :rtype: diplomacy.engine.game.Game
@@ -93,7 +91,6 @@ def from_saved_game_format(saved_game):
 
 def load_saved_games_from_disk(input_path, on_error='raise'):
     """ Rebuids multiple :class:`diplomacy.engine.game.Game` from each line in a .jsonl file
-
         :param input_path: The path to the input file. Expected content is one saved_game json per line.
         :param on_error: Optional. What to do if a game conversion fails. Either 'raise', 'warn', 'ignore'
         :type input_path: str
@@ -127,7 +124,6 @@ def load_saved_games_from_disk(input_path, on_error='raise'):
 def is_valid_saved_game(saved_game):
     """ Checks if the saved game is valid.
         This is an expensive operation because it replays the game.
-
         :param saved_game: The saved game (from to_saved_game_format)
         :return: A boolean that indicates if the game is valid
     """
@@ -199,9 +195,12 @@ def is_valid_saved_game(saved_game):
                     return False
                 if 'NO_CHECK' not in game.rules:
                     for order in orders[power_name]:
-                        loc = order.split()[1]
-                        if order not in possible_orders[loc]:
-                            return False
+                      # exclude the VOID
+                      if ("VOID" == order.split()[0]):
+                        break; # to the next in for order in orders[power_name]:
+                      loc = order.split()[1]
+                      if order not in possible_orders[loc]:
+                        return False
 
             # Validating resulting state
             game.process()
