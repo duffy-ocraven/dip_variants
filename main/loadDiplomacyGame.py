@@ -7,6 +7,12 @@ from diplomacy.utils.export import to_saved_game_format
 import ujson as json
 import sys, getopt, os
 
+def Usage():
+  sys.exit("loadDiplomacyGame.py\n"
+   "file_name = arguments[0]\n"
+   "phase = arguments[1]\n"
+   "Outputs the game to disk to visualize\n"
+   "with open('unitTestResult_game.json', 'w') as outp, so overwrites\n")
 # Creating a game
 # map file's baseName can be the map_name argument. e.g. Game(map_name='pure')
 # the following script, from https://pypi.org/project/diplomacy/
@@ -15,17 +21,20 @@ def main():
   try:   
    (options, arguments) = getopt.getopt(sys.argv[1:], 'h')
   except getopt.error:
-
+   sys.exit("Unknown input parameter")
   if [] == arguments:
-    sys.exit("Unknown input parameter.")
-
+    Usage()
   file_name = arguments[0]
-  phrase = arguments[1]
+  if [file_name] == arguments:
+    Usage()
+  phase = arguments[1]
+  if not os.path.exists(file_name):
+    sys.exit("File %s does not exist." % input_path)
   with open(file_name, 'r') as file:
+    input_combined_lines = ''
     for line in file:
-      input_combined_lines = ''
-      if(line.strip().find("orders") != -1):
-        input_combined_lines += '"orders":{},"results":{},"messages":[]}]}'
+      if(line.find("orders")!= -1):
+        input_combined_lines += '"orders":{},"results":{}},"messages":[]}]}'
         input = json.loads(input_combined_lines)
         break
       input_combined_lines += line.strip()
@@ -36,13 +45,14 @@ def main():
   if not os.path.exists(input_path):
     sys.exit("File %s does not exist." % input_path)
   with open(input_path, 'r') as file:
-    combined_lines = ''
+    game_combined_lines = ''
     for line in file:
-      game_combined_lines += line.strip()
       if(line.strip()== ''):
+        print(game_combined_lines)
         saved_game = json.loads(game_combined_lines)
         game = from_saved_game_format(saved_game)
         break
+      game_combined_lines += line.strip()
     else:
       sys.exit("File %s is invalid")
 
