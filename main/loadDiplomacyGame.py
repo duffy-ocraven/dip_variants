@@ -34,7 +34,7 @@ def main():
     input_combined_lines = ''
     for line in file:
       if(line.find("orders")!= -1):
-        input_combined_lines += '"orders":{},"results":{}},"messages":[]}]}'
+        input_combined_lines += '"orders":{},"results":{},"messages":[]}]}'
         input = json.loads(input_combined_lines)
         break
       input_combined_lines += line.strip()
