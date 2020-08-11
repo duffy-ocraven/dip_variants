@@ -29,7 +29,7 @@ def main():
     Usage()
   phase = arguments[1]
   if not os.path.exists(file_name):
-    sys.exit("File %s does not exist." % input_path)
+    sys.exit("File %s does not exist." % file_name)
   with open(file_name, 'r') as file:
     input_combined_lines = ''
     for line in file:
@@ -48,13 +48,12 @@ def main():
     game_combined_lines = ''
     for line in file:
       if(line.strip()== ''):
-        print(game_combined_lines)
         saved_game = json.loads(game_combined_lines)
-        game = from_saved_game_format(saved_game)
+        game = from_saved_game_format4
         break
       game_combined_lines += line.strip()
     else:
-      sys.exit("File %s is invalid")
+      sys.exit("File %s is invalid" % saved_game)
 
   if not is_valid_saved_game(saved_game):
     sys.exit("File %s was evaluated as invalid." % input_path)
