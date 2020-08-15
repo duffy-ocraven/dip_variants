@@ -31,15 +31,24 @@ def main():
   if not os.path.exists(file_name):
     sys.exit("File %s does not exist." % file_name)
   with open(file_name, 'r') as file:
+    loop_control = False
     input_combined_lines = ''
     for line in file:
-      if(line.find("orders")!= -1):
+      name_index = line.find("name")
+      if(name_index != -1 and line[name_index+7] == phase[0]):
+        if(line[name_index+8:name_index+13]==phase[1:]):
+          loop_control = True
+        elif(line[name_index+8:name_index+13]>phase[1:]):
+          break	
+     
+      if(line.find("orders")!= -1 and bool(loop_control)):
         input_combined_lines += '"orders":{},"results":{},"messages":[]}]}'
-        input = json.loads(input_combined_lines)
+        loaded_input = json.loads(input_combined_lines)
+        input = from_saved_game_format(loaded_input)
         break
       input_combined_lines += line.strip()
     else:
-      sys.exit("File %s is invalid")
+      sys.exit("File %s is invalid" % file_name)
 
   input_path = "../unitTestPureGame.json"
   if not os.path.exists(input_path):
@@ -49,7 +58,7 @@ def main():
     for line in file:
       if(line.strip()== ''):
         saved_game = json.loads(game_combined_lines)
-        game = from_saved_game_format4
+        game = from_saved_game_format(saved_game)
         break
       game_combined_lines += line.strip()
     else:
