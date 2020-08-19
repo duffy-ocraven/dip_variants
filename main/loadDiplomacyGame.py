@@ -39,7 +39,7 @@ def main():
         if(line[name_index+8:name_index+13]==phase[1:]):
           loop_control = True
         elif(line[name_index+8:name_index+13]>phase[1:]):
-          sys.exit()
+          sys.exit("Phase value not found")
      
       if(line.find("orders")!= -1 and bool(loop_control)):
         input_combined_lines += '"orders":{},"results":{},"messages":[]}]}'
