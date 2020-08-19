@@ -13,8 +13,6 @@ def Usage():
    "phase = arguments[1]\n"
    "Outputs the game to disk to visualize\n"
    "with open('unitTestResult_game.json', 'w') as outp, so overwrites\n")
-# Creating a game
-# map file's baseName can be the map_name argument. e.g. Game(map_name='pure')
 # the following script, from https://pypi.org/project/diplomacy/
 # plays a game locally by submitting random valid orders until the game is completed.
 def main():
@@ -28,6 +26,8 @@ def main():
   if [file_name] == arguments:
     Usage()
   phase = arguments[1]
+  if(len(phase) != 6):
+    sys.exit("Invalid phase length")
   if not os.path.exists(file_name):
     sys.exit("File %s does not exist." % file_name)
   with open(file_name, 'r') as file:
@@ -39,7 +39,7 @@ def main():
         if(line[name_index+8:name_index+13]==phase[1:]):
           loop_control = True
         elif(line[name_index+8:name_index+13]>phase[1:]):
-          break	
+          sys.exit()
      
       if(line.find("orders")!= -1 and bool(loop_control)):
         input_combined_lines += '"orders":{},"results":{},"messages":[]}]}'
@@ -58,7 +58,6 @@ def main():
     for line in file:
       if(line.strip()== ''):
         saved_game = json.loads(game_combined_lines)
-        game = from_saved_game_format(saved_game)
         break
       game_combined_lines += line.strip()
     else:
@@ -66,6 +65,7 @@ def main():
 
   if not is_valid_saved_game(saved_game):
     sys.exit("File %s was evaluated as invalid." % input_path)
+  game = from_saved_game_format(loaded_input)
   if not game.is_game_done:
     # For each power, the F1922M orders are already set
     game.process() # process those, then for W1922A, do random
