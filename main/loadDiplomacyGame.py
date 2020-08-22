@@ -26,8 +26,12 @@ def main():
   if [file_name] == arguments:
     Usage()
   phase = arguments[1]
+  UseExistingOrders = 'false'
   if(len(phase) != 6):
     sys.exit("Invalid phase length")
+
+  if(arguments.count('-u') != 0):
+    UseExistingOrders = 'true'
   if not os.path.exists(file_name):
     sys.exit("File %s does not exist." % file_name)
   with open(file_name, 'r') as file:
@@ -42,7 +46,11 @@ def main():
           sys.exit("Phase value not found")
      
       if(line.find("orders")!= -1 and bool(loop_control)):
-        input_combined_lines += '"orders":{},"results":{},"messages":[]}]}'
+        if(bool(UseExistingOrders)):
+          input_combined_lines += line.strip()
+        else:
+          input_combined_lines += '"orders":{}'
+        input_combined_lines += '"results":{},"messages":[]}]}'
         loaded_input = json.loads(input_combined_lines)
         input = from_saved_game_format(loaded_input)
         break
@@ -82,7 +90,14 @@ def main():
             power_orders.append(random.choice(possible_orders[loc]))
             print("%s for %s" % (power_orders[-1], power_name))
         game.set_orders(power_name, power_orders)
-    game.process()
+    if not game.is_game_done and bool(UseExistingOrders):
+      game.process() # process those, then after do random
+    while not game.is_game_done:
+      possible_orders = game.get_all_possible_orders()
+      for power_name, power in game.powers.items():
+        power_orders = [random.choice(possible_orders[loc]) for loc in game.get_orderable_locations(power_name) if possible_orders[loc]]
+        game.set_orders(power_name, power_orders)
+      game.process()
 # Exporting the game to disk to visualize
     with open('unitTestResult_game.json', 'w') as outp:
       outp.write(to_saved_game_format(game))
