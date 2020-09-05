@@ -4,6 +4,7 @@ from diplomacy import Game
 from diplomacy.utils.export import from_saved_game_format
 from diplomacy.utils.export import is_valid_saved_game
 from diplomacy.utils.export import to_saved_game_format
+from argparse import ArgumentParser
 import ujson as json
 import sys, getopt, os
 
@@ -15,25 +16,13 @@ def Usage():
    "with open('unitTestResult_game.json', 'w') as outp, so overwrites\n")
 # the following script, from https://pypi.org/project/diplomacy/
 # plays a game locally by submitting random valid orders until the game is completed.
-def main():
-  try:   
-   (options, arguments) = getopt.getopt(sys.argv[1:], 'h')
-  except getopt.error:
-   sys.exit("Unknown input parameter")
-  if [] == arguments:
-    Usage()
-  file_name = arguments[0]
-  if [file_name] == arguments:
-    Usage()
-  phase = arguments[1]
-  UseExistingOrders = 'false'
+def main(file_name, phase, UseExistingOrders):
   if(len(phase) != 6):
     sys.exit("Invalid phase length")
-
-  if(arguments.count('-u') != 0):
-    UseExistingOrders = 'true'
   if not os.path.exists(file_name):
     sys.exit("File %s does not exist." % file_name)
+
+
   with open(file_name, 'r') as file:
     loop_control = False
     input_combined_lines = ''
@@ -49,7 +38,7 @@ def main():
         if(bool(UseExistingOrders)):
           input_combined_lines += line.strip()
         else:
-          input_combined_lines += '"orders":{}'
+          input_combined_lines += '"orders":{},'
         input_combined_lines += '"results":{},"messages":[]}]}'
         loaded_input = json.loads(input_combined_lines)
         input = from_saved_game_format(loaded_input)
@@ -58,21 +47,6 @@ def main():
     else:
       sys.exit("File %s is invalid" % file_name)
 
-  input_path = "../unitTestPureGame.json"
-  if not os.path.exists(input_path):
-    sys.exit("File %s does not exist." % input_path)
-  with open(input_path, 'r') as file:
-    game_combined_lines = ''
-    for line in file:
-      if(line.strip()== ''):
-        saved_game = json.loads(game_combined_lines)
-        break
-      game_combined_lines += line.strip()
-    else:
-      sys.exit("File %s is invalid" % saved_game)
-
-  if not is_valid_saved_game(saved_game):
-    sys.exit("File %s was evaluated as invalid." % input_path)
   game = from_saved_game_format(loaded_input)
   if not game.is_game_done:
     # For each power, the F1922M orders are already set
@@ -103,4 +77,11 @@ def main():
       outp.write(to_saved_game_format(game))
 
 if __name__ == '__main__':
-   main()
+   p = ArgumentParser()
+   p.add_argument('file_name')
+   p.add_argument('phase')
+   p.add_argument('-u', action='store_true')
+
+   args = p.parse_args()
+
+   main(args.file_name, args.phase, args.u)
